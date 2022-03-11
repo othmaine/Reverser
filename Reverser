@@ -1,0 +1,91 @@
+import java.io.*;
+class Stack
+{
+    private int maxSize;
+    private char[] stack;
+    private int top;
+    
+    public Stack(int a)
+    {
+        maxSize = a;
+        top = -1;
+        stack = new char[maxSize];
+    }
+    public void push(char let)
+    {
+        stack[++top] =let;
+    }
+    public char pop()
+    {
+        return stack[top--];
+    }
+    public boolean isEmpty()
+    {
+        return (top == -1);
+    }
+    public char peek()
+    {
+        return stack[top];
+    }
+    public boolean isFul()
+    {
+        return(top == maxSize-1);
+    }
+}
+
+class Reverser
+{
+    private String input;
+    private String output;
+    
+    public Reverser(String in)
+    {
+        input = in;
+    }
+    
+    public String doRev()
+    {
+        int size = input.length();
+        Stack s = new Stack(size);
+        for(int i=0;i<size;i++)
+        {
+            char ch = input.charAt(i);
+            s.push(ch);
+        }
+        
+        output ="";
+        while(!s.isEmpty())
+        {
+            output += s.pop();
+        }
+        return output;
+    }
+}
+public class ReverseApp 
+{
+    public static void main(String[] args) throws IOException 
+    {
+        String input,output;
+        while(true)
+        {
+            System.out.println("Enter a string: ");
+            System.out.flush();
+            input = getString(); 
+            if(input.equals(""))
+                break;
+            
+            Reverser r = new Reverser(input);
+            output = r.doRev();
+            System.out.println("Reversed: "+ output);
+            
+        }
+    }
+    
+    public static String getString() throws IOException
+    {
+        InputStreamReader isr = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(isr);
+        String s = br.readLine();
+        return s;
+    }
+}
